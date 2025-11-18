@@ -1,4 +1,5 @@
 #include<iostream>
+#include<fstream>
 #include<string>
 #include<vector>
 using namespace std;
@@ -33,6 +34,7 @@ void print_task(){
 }
 string response1;
 int main(){
+
     cout<<"_______________________________________________________________________________"<<endl;
     cout<<"\033[1;32m"<<"----------------------------------TO-DO LIST-----------------------------------"<<"\033[0m"<<endl;
     cout<<"_______________________________________________________________________________"<<endl;
@@ -52,6 +54,15 @@ int main(){
         getline(cin,task);
         tasks.push_back(task);
     }
+ ///////////FILE HANDLING///////////////////////////
+    ofstream fout;
+    fout.open("tasks.text");
+    fout<<"Tasks are : \n\n";
+    for(int i=0; i<tasks.size();i++){
+        fout<<i+1<<". "<<tasks[i]<<endl;
+    }
+    fout.close();
+///////////////////////////////////////////////////////////////////
     cout<<endl;
     cout<<"________________________________________________________________________________________________________"<<endl<<endl;
     cout<<"Your tasks are as : "<<endl<<endl;
@@ -98,7 +109,16 @@ int main(){
         cout<<"TASKS ADDED";
         cout<<"\033[0m";
         cout<<endl<<endl;
+//////////////////////////////////////////////////////////
+    ofstream fout;
+    fout.open("tasks.text");
+    fout<<"Tasks are : \n";
+    for(int i=0; i<tasks.size();i++){
+    fout<<i+1<<". "<<tasks[i]<<endl;
     }
+    fout.close();
+    }
+/////////////////////////////////////////////////////////////
     if(response1=="DELETE" || response1 == "delete"){
         cout<<"________________________________________________________________________________________________________"<<endl<<endl;
         int n2;
@@ -111,16 +131,29 @@ int main(){
             cout<<"\033[1;34m";
             cout<<"Task "<<i+1<<" : "<<"\033[0m"<<"\033[1;32m"<<tasks[i]<<"\033[0m"<<endl;
         }
-        
-       
+ //////////////////////////////////////////////////////////       
+    ofstream fout;
+    fout.open("tasks.text");
+    fout<<"Tasks are : \n";
+    for(int i=0; i<tasks.size();i++){
+       fout<<i+1<<". "<<tasks[i]<<endl;
+    }
+    fout.close();
+///////////////////////////////////////////////////////////
     }
     if(response1=="PRINT" || response1 == "print"){
         cout<<"________________________________________________________________________________________________________"<<endl<<endl;
         cout<<"YOUR TASKS ARE AS : "<<endl<<endl;
-        for(int i=0; i<tasks.size();i++){
-            cout<<"\033[1;34m";
-            cout<<"Tasks "<<i+1<<" : "<<"\033[0m"<<"\033[1;32m"<<tasks[i]<<"\033[0m"<<endl;
+        ifstream fin;
+        fin.open("tasks.text");
+        char c;
+        c = fin.get();
+        while(!fin.eof()){
+            cout<<c;
+            c = fin.get();
         }
+        fin.close();
+        cout<<endl;
     }
     if(response1=="EXIT" || response1 == "exit"){
         cout<<"\033[1;31mENDING THE PROGRAM...\033[0m"<<endl<<endl;
